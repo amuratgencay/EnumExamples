@@ -1,0 +1,17 @@
+[
+	{
+		"LanguageCode": "En",
+		"Greeting": "Hello {0}.",
+		"Farewell": "Good bye {0}."
+	},
+	{
+		"LanguageCode": "Tr",
+		"Greeting": "Merhaba {0}.",
+		"Farewell": "Güle güle {0}."
+	},
+	{
+		"LanguageCode": "Fr",
+		"Greeting": "Bonjour {0}.",
+		"Farewell": "Au revoir {0}."
+	}
+]
