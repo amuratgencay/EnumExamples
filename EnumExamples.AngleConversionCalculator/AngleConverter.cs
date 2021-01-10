@@ -12,9 +12,9 @@ namespace EnumExamples.AngleConversionCalculator
         private const double GradToDeg = 1.1111111111111;
         private const double GradToRad = 0.9;
 
-        public static double ConvertAngle(double angle, AngleType srcAngleType, AngleType destAngleType)
-        {
-            return srcAngleType == destAngleType
+        public static double ConvertAngle(double angle, AngleType srcAngleType,
+            AngleType destAngleType)
+            => srcAngleType == destAngleType
                 ? angle
                 : srcAngleType switch
                 {
@@ -38,12 +38,9 @@ namespace EnumExamples.AngleConversionCalculator
                     },
                     _ => ThrowException(nameof(srcAngleType), srcAngleType)
                 };
-        }
 
 
-        private static double ThrowException(string paramName, AngleType angleType)
-        {
-            throw new ArgumentOutOfRangeException(paramName, angleType, null);
-        }
+        private static double ThrowException(string paramName, AngleType angleType) 
+            => throw new ArgumentOutOfRangeException(paramName, angleType, null);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using static EnumExamples.AngleConversionCalculator.AngleType;
 using LazyType = System.Lazy<EnumExamples.AngleConversionCalculator.AngleTypeEnumeration>;
 using LazyTypeDictionary =
@@ -13,11 +14,8 @@ namespace EnumExamples.AngleConversionCalculator
     {
         private readonly AngleTypeDictionary _factorMap = new AngleTypeDictionary();
 
-        private AngleTypeEnumeration(params (AngleType destAngleType, double factor)[] destFactors)
-        {
-            foreach (var (destAngleType, factor) in destFactors)
-                _factorMap[destAngleType] = factor;
-        }
+        private AngleTypeEnumeration(params (AngleType destAngleType, double factor)[] destFactors) 
+            => destFactors.ToList().ForEach(x=> _factorMap[x.destAngleType] = x.factor);
 
         private static readonly LazyTypeDictionary Map = new LazyTypeDictionary();
 
@@ -37,8 +35,8 @@ namespace EnumExamples.AngleConversionCalculator
                 ? true
                 : throw new ArgumentOutOfRangeException(nameof(value), value, null);
 
-        public static double ConvertAngle(double angle, AngleType srcAngleType, AngleType destAngleType) =>
-            CheckEnumValue((int) srcAngleType) && CheckEnumValue((int) destAngleType)
+        public static double ConvertAngle(double angle, AngleType srcAngleType, AngleType destAngleType)
+            => CheckEnumValue((int) srcAngleType) && CheckEnumValue((int) destAngleType)
                 ? angle * Map[srcAngleType].Value._factorMap[destAngleType]
                 : 0;
     }

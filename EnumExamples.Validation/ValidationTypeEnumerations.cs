@@ -5,7 +5,9 @@ using System.Linq;
 using static System.Console;
 using static EnumExamples.Validation.ValidationMethods;
 using static EnumExamples.Validation.ValidationTypes;
-
+using ValidationMethodList = System.Collections.Generic.List<System.Func<string, bool>>;
+using ValidationTypeFuncMap = System.Collections.Generic.Dictionary<EnumExamples.Validation.ValidationTypes, System.Func<string, bool>>;
+using ValidationTypeEnumerationMap = System.Collections.Generic.Dictionary<EnumExamples.Validation.ValidationTypes, EnumExamples.Validation.ValidationTypeEnumerations>;
 namespace EnumExamples.Validation
 {
     public class ValidationTypeEnumerations
@@ -25,7 +27,7 @@ namespace EnumExamples.Validation
                 .Where(x => ValidationTypes.HasFlag(x))
                 .Select(x => x.ToString()));
 
-        private readonly List<Func<string, bool>> _validationFunc = new List<Func<string, bool>>();
+        private readonly ValidationMethodList _validationFunc = new ValidationMethodList();
 
         private static Lazy<ValidationTypeEnumerations> Create(ValidationTypes validationTypes) =>
             new Lazy<ValidationTypeEnumerations>(() =>
@@ -48,8 +50,8 @@ namespace EnumExamples.Validation
             ValidationTypes = validationTypes;
         }
 
-        private static readonly Dictionary<ValidationTypes, Func<string, bool>> FuncMap
-            = new Dictionary<ValidationTypes, Func<string, bool>>
+        private static readonly ValidationTypeFuncMap FuncMap
+            = new ValidationTypeFuncMap
             {
                 {StringEmpty, StringEmptyValidation},
                 {EMail, EmailValidation},
@@ -57,8 +59,8 @@ namespace EnumExamples.Validation
                 {Numeric, NumericValidation}
             };
 
-        private static readonly Dictionary<ValidationTypes, ValidationTypeEnumerations> Map
-            = new Dictionary<ValidationTypes, ValidationTypeEnumerations>
+        private static readonly ValidationTypeEnumerationMap Map
+            = new ValidationTypeEnumerationMap
             {
                 {StringEmpty, StringEmptyValidator},
                 {EMail, EmailValidator},
@@ -71,7 +73,8 @@ namespace EnumExamples.Validation
 
         static ValidationTypeEnumerations()
         {
-            static void FillMethods(IEnumerable array, ValidationTypeEnumerations validationTypeEnumerations)
+            static void FillMethods(IEnumerable array,
+                ValidationTypeEnumerations validationTypeEnumerations)
             {
                 foreach (var enumValue in array)
                 {

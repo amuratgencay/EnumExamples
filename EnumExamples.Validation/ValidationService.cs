@@ -15,7 +15,8 @@ namespace EnumExamples.Validation
                 EMail => ValidationMethods.EmailValidation(value),
                 PhoneNumber => ValidationMethods.PhoneNumberValidation(value),
                 Numeric => ValidationMethods.NumericValidation(value),
-                _ => throw new ArgumentOutOfRangeException(nameof(validationTypes), validationTypes, null)
+                _ => throw new ArgumentOutOfRangeException(nameof(validationTypes), 
+                    validationTypes, null)
             };
         }
 
@@ -29,7 +30,8 @@ namespace EnumExamples.Validation
                 validationTypes.HasFlag(PhoneNumber) ? nameof(PhoneNumber) : ""
             }.Where(x => !string.IsNullOrEmpty(x)));
 
-            return $"{"\"" + value + "\"",25} validate for ({validations}) = {Validate(value, validationTypes)}";
+            return $"{"\"" + value + "\"",25} validate for ({validations}) = " +
+                   $"{Validate(value, validationTypes)}";
         }
     }
 }

@@ -15,7 +15,7 @@ namespace EnumExamples.LocalizedMessage
         {
             (string user, LanguageCode languageCode)[] messages
                 = {("Adam", En), ("Murat", Tr), ("Jean", Fr)};
-
+            
             ShowMessages(messages, MessageService.GetLocalizedMessage);
             ShowMessages(messages, MessageTypeExtensions.ToLocalizedMessage);
         }

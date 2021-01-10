@@ -14,7 +14,8 @@ namespace EnumExamples.CarFactory
                 Mercedes_CLK => new Car("Mercedes", "CLK", 550000m),
                 Opel_Astra => new Car("Opel", "Astra", 35000m),
                 Opel_Corsa => new Car("Opel", "Corsa", 70000m),
-                _ => throw new ArgumentOutOfRangeException(nameof(carBrandModelEnum), carBrandModelEnum, null)
+                _ => throw new ArgumentOutOfRangeException(nameof(carBrandModelEnum), 
+                    carBrandModelEnum, null)
             };
     }
 }

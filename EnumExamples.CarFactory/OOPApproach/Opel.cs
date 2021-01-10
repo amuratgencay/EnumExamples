@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using BrandLazy = System.Lazy<EnumExamples.CarFactory.OOPApproach.Brand>;
+using ModelLazy = System.Lazy<EnumExamples.CarFactory.OOPApproach.Model>;
 
 namespace EnumExamples.CarFactory.OOPApproach
 {
@@ -20,14 +22,11 @@ namespace EnumExamples.CarFactory.OOPApproach
                     {OpelModel.Corsa, Corsa},
                 };
 
-            private static Lazy<Brand> BrandLazy =>
-                new Lazy<Brand>(() => new Brand(nameof(Opel)));
+            private static BrandLazy BrandLazy => CreateBrand(nameof(Opel));
 
-            private static Lazy<Model> AstraLazy =>
-                new Lazy<Model>(() => new Model(nameof(Astra), Brand, 35000m));
+            private static ModelLazy AstraLazy => CreateModel(nameof(Astra), Brand, 35000m);
 
-            private static Lazy<Model> CorsaLazy =>
-                new Lazy<Model>(() => new Model(nameof(Corsa), Brand, 70000m));
+            private static ModelLazy CorsaLazy => CreateModel(nameof(Corsa), Brand, 70000m);
 
             private static Brand Brand => BrandLazy.Value;
             public static Model Astra => AstraLazy.Value;
@@ -38,6 +37,12 @@ namespace EnumExamples.CarFactory.OOPApproach
                 var model = Map[opelModel];
                 return new Car(Brand.Name, model.Name, model.Price);
             }
+
+            private static BrandLazy CreateBrand(string name)
+                => new BrandLazy(() => new Brand(name));
+
+            private static ModelLazy CreateModel(string name, Brand brand, decimal price)
+                => new ModelLazy(() => new Model(name, brand, price));
         }
     }
 }

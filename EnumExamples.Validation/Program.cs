@@ -24,7 +24,7 @@ namespace EnumExamples.Validation
             const string nonValidEMail = "amuratgencaygmail.com";
 
 
-            
+
 
             ShowValidationMessageEnum(emptyString, StringEmpty);
             ShowValidationMessageEnumeration(emptyString, StringEmptyValidator);
